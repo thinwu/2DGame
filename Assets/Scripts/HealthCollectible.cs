@@ -22,6 +22,7 @@ public class HealthCollectible : MonoBehaviour
         if (rubyCtrl != null && rubyCtrl.CurrentHealth < rubyCtrl.maxHealth)
         {
             rubyCtrl.ChangeHealth(HP);
+            rubyCtrl.invincibleTimer = 3;
             Destroy(gameObject);
             Debug.Log("Object that entered the trigger : " + rubyCtrl.gameObject);
         }
