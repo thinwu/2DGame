@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5230607321095081536}
   - component: {fileID: 5230607321095081567}
   - component: {fileID: -9176721048912978119}
+  - component: {fileID: -3542335454274754255}
   m_Layer: 0
   m_Name: MetalCube
   m_TagString: Untagged
@@ -108,3 +109,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7923572, y: 0.36838377}
   m_EdgeRadius: 0
+--- !u!114 &-3542335454274754255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5230607321095081566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d716ad342ac5a404eac7f4ca9d31ad55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  burst: {fileID: 6482292181225336125, guid: a508af185235d47409a215882593be25, type: 3}
+  maxHealth: 3
+  invincibleTimer: 1

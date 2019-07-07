@@ -19,12 +19,12 @@ public class HealthCollectible : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         RubyController rubyCtrl = other.GetComponent<RubyController>();
-        if (rubyCtrl != null && rubyCtrl.CurrentHealth < rubyCtrl.maxHealth)
+        if (rubyCtrl != null && rubyCtrl.ChangeHealth(HP))
         {
-            rubyCtrl.ChangeHealth(HP);
             rubyCtrl.invincibleTimer = 3;
             Destroy(gameObject);
             Debug.Log("Object that entered the trigger : " + rubyCtrl.gameObject);
+
         }
     }
 }

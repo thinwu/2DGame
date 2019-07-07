@@ -25,6 +25,7 @@ public class DamageZone : MonoBehaviour
         while (rubyCtrl != null && inDamage)
         {
             rubyCtrl.ChangeHealth(damage);
+            rubyCtrl.invincibleTimer = damageDuration;
             yield return new WaitForSeconds(damageDuration);
         }
     }
