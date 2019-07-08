@@ -123,4 +123,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletCount: 30
   Bullet: {fileID: 1956386195235275247, guid: 60b0ec1408c6b2d43bd276531dd4f6f6, type: 3}
-  NextToSpawn: {fileID: 196501352165517437}

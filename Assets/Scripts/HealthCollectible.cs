@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthCollectible : MonoBehaviour
 {
     public float HP = 1.0f;
+    public AudioClip collectedClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class HealthCollectible : MonoBehaviour
         {
             rubyCtrl.invincibleTimer = 3;
             Destroy(gameObject);
+            rubyCtrl.PlaySound(collectedClip);
             Debug.Log("Object that entered the trigger : " + rubyCtrl.gameObject);
 
         }

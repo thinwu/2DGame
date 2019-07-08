@@ -25,7 +25,7 @@ public class RubyController : HealthControl
     int currentBullet = 0;
     private float width;
     private float height;
-
+    AudioSource audioSource;
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
@@ -33,6 +33,7 @@ public class RubyController : HealthControl
         animator = GetComponent<Animator>();
         width = (float)Screen.width / 2.0f;
         height = (float)Screen.height / 2.0f;
+        audioSource = GetComponent<AudioSource>();
     }
     Vector2 TouchToMove(Touch touchSession, ref Vector2 touchOriginPoint, ref Vector2 touchEndPoint) 
     { 
@@ -56,6 +57,10 @@ public class RubyController : HealthControl
         }
         return Vector2.zero;
 
+    }
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
     // Update is called once per frame
     void Update()
@@ -84,7 +89,10 @@ public class RubyController : HealthControl
 
 #endif
 
-
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            tryTalkToNPC();
+        }
         Vector2 position = rigidbody2d.position;
         float deltaT = Time.deltaTime;
 
@@ -144,6 +152,19 @@ public class RubyController : HealthControl
             spriteBlinkingTimer = 0.0f;
             tmp.a = (gameObject.GetComponent<SpriteRenderer>().color.a < 1f) ? 1f : .5f;
             this.gameObject.GetComponent<SpriteRenderer>().color = tmp;
+        }
+    }
+    void tryTalkToNPC()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
+        if (hit.collider != null)
+        {
+            JambiController jambiCtrl = hit.collider.GetComponent<JambiController>();
+            if(jambiCtrl != null)
+            {
+                jambiCtrl.DisplayDialog();
+            }
+
         }
     }
     void Launch()
