@@ -8,7 +8,6 @@ using UnityEngine;
 public class Controller2DScroller : MonoBehaviour
 {
     public LayerMask collisionMask;
-    public LayerMask DamageMask;
     public CollisionInfo collisions;
     const float skinWidth = .015f;
     public int horizontalRayCount = 4;
@@ -22,7 +21,9 @@ public class Controller2DScroller : MonoBehaviour
     {
         Collider = GetComponent<BoxCollider2D>();
     }
-    private void VerticalCollision(ref Vector3 velocity)
+    public delegate void OnHitCallBack(RaycastHit2D hit);
+
+    private void VerticalCollision(ref Vector3 velocity, OnHitCallBack onHitCall)
     {
         float directionY = Mathf.Sign(velocity.y);
         float rayLength = Mathf.Abs(velocity.y) + skinWidth;
@@ -38,10 +39,12 @@ public class Controller2DScroller : MonoBehaviour
                 rayLength = hit.distance;
                 collisions.below = (directionY == -1);
                 collisions.above = (directionY == 1);
+                onHitCall(hit);
             }
         }
     }
-    private void HorizontalCollision(ref Vector3 velocity)
+
+    private void HorizontalCollision(ref Vector3 velocity, OnHitCallBack onHitCall)
     {
         float directionX = Mathf.Sign(velocity.x);
         float rayLength = Mathf.Abs(velocity.x) + skinWidth;
@@ -58,23 +61,23 @@ public class Controller2DScroller : MonoBehaviour
                 rayLength = hit.distance;
                 collisions.left = (directionX == -1);
                 collisions.right = (directionX == 1);
+                onHitCall(hit);
             }
         }
     }
-    public void Move(Vector3 velocity)
+    public void Move(Vector3 velocity, OnHitCallBack onHitCall)
     {
         UpdateRaycastOrigins();
         CalculateRaySpacing();
         collisions.Reset();
         if (velocity.x != 0)
         {
-           HorizontalCollision(ref velocity);
+           HorizontalCollision(ref velocity, onHitCall);
         }
         if(velocity.y != 0)
         {
-           VerticalCollision(ref velocity);
+           VerticalCollision(ref velocity, onHitCall);
         }
-        
         transform.Translate(velocity);
     }
     void UpdateRaycastOrigins()

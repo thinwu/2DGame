@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class HealthControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
     public bool ChangeHealth(float amount, float invincibleTimer, ref float currentHealth, float maxHealth)
     {
         if (amount < 0)
