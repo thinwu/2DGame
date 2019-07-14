@@ -6,11 +6,18 @@ using UnityEngine;
 [RequireComponent(typeof(DamageControl))]
 public class PlayerController : MovableObj
 {
+    public ParticleSystem PowerUp;
     public GameObject swordWind;
-    Animator animator;
-    Vector2 input;
+    public int swordWindCount = 0;
+    public float swordWindSpeed = 400f;
+    public float swordWindInterval = 0.07f;
+    public float swordWindOffsetScale = 0.5f;
 
-    private string AnimiBlock = "Block";
+
+    private Animator animator;
+    private Vector2 input;
+    private readonly string AnimiBlock = "Block";
+    
     private enum Attack
     {
         ExitAttack = 0, Melee = 1,Cast,RapidMelee,Strike 
@@ -42,7 +49,6 @@ public class PlayerController : MovableObj
         if (Input.GetKeyDown(KeyCode.C))
         {
             animator.SetFloat("Attack", (float)Attack.Melee);
-            //LaunchSwordWind(); 
         }
         base.SimpleMove(input, animator, Input.GetKeyDown(KeyCode.Space));
     }
@@ -66,11 +72,16 @@ public class PlayerController : MovableObj
     {
         animator.SetBool(AnimiBlock, false);
     }
-    protected void LaunchSwordWind()
+    protected IEnumerator LaunchSwordWind()
     {
         Vector2 location = transform.position;
-        GameObject projectileObject = Instantiate(swordWind, location + (Vector2.up + direction) * 0.5f, Quaternion.identity);
-        Bullet b = projectileObject.GetComponent<Bullet>();
-        b.Launch(direction, 400);
+        for(int i = 1; i<=swordWindCount; i++)
+        {
+            GameObject projectileObject = Instantiate(swordWind, location + (Vector2.up + direction) * swordWindOffsetScale, Quaternion.identity);
+            Bullet b = projectileObject.GetComponent<Bullet>();
+            b.Launch(direction, swordWindSpeed);
+            yield return new WaitForSeconds(swordWindInterval);
+        }
+        
     }
 } 
