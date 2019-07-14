@@ -13,7 +13,7 @@ public class PlayerController : MovableObj
     private string AnimiBlock = "Block";
     private enum Attack
     {
-        ExitAttack = 0, Melee = 1,Cast,RapidMelee,Strike
+        ExitAttack = 0, Melee = 1,Cast,RapidMelee,Strike 
 
     }
     private void Awake()
@@ -42,7 +42,7 @@ public class PlayerController : MovableObj
         if (Input.GetKeyDown(KeyCode.C))
         {
             animator.SetFloat("Attack", (float)Attack.Melee);
-            LaunchSwordWind(); 
+            //LaunchSwordWind(); 
         }
         base.SimpleMove(input, animator, Input.GetKeyDown(KeyCode.Space));
     }
@@ -69,8 +69,8 @@ public class PlayerController : MovableObj
     protected void LaunchSwordWind()
     {
         Vector2 location = transform.position;
-        GameObject projectileObject = Instantiate(swordWind, location + Vector2.up * 0.5f, Quaternion.identity);
+        GameObject projectileObject = Instantiate(swordWind, location + (Vector2.up + direction) * 0.5f, Quaternion.identity);
         Bullet b = projectileObject.GetComponent<Bullet>();
-        b.Launch(direction, 300);
+        b.Launch(direction, 400);
     }
 } 

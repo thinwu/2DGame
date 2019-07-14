@@ -66,6 +66,8 @@ public class DamageControl : MonoBehaviour, IHealthControl
     {
         if (currentHealth <= 0)
         {
+            Vector2 p = gameObject.transform.position;
+            GameManager.instance.SpawnInSec(GameManager.instance.Point[0], p + Vector2.up * 0.5f, 0.2f);
             Destroy(gameObject);
         }
     }

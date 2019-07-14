@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get; private set; }
     public GameObject[] Ammos;
     public GameObject[] Health;
+    public GameObject[] Point;
     // Start is called before the first frame update
     void Awake()
     {
